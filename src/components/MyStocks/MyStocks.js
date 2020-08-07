@@ -18,26 +18,13 @@ class MyStocks extends Component {
         Object.keys(this.props.myStocks).map(row => {
             let dataRow = this.props.myStocks[row];
             rows[dataRow.symbol] = {...dataRow};
-            Axios.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+dataRow.symbol+'&outputsize=compact&apikey=6X6YP8313WMG8Y86')
+            // 2BEXLL47M5CJTGUH
+            // 34BUQC6DXWG9GSAE
+            Axios.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+dataRow.symbol+'&outputsize=compact&apikey=34BUQC6DXWG9GSAE')
                 .then(response => {
-                    console.log(response);
+                    console.log(response.data);
                     let serverData = response.data["Time Series (Daily)"];
-                    let today = new Date();
-                    let dayCounter = 0;
-                    if(today.getDay() === 0) { dayCounter = 2; }
-                    if(today.getDay() === 6) { dayCounter = 1; }
-                    let year = today.getFullYear();
-                    let month = parseInt(today.getMonth())+ 1;
-                    let date = parseInt(today.getDate()-dayCounter)<10 ? '0'+parseInt(today.getDate()-dayCounter) : parseInt(today.getDate()-dayCounter);
-                    let finalDate = year+'-'+month+'-'+date;
-                    if(serverData[finalDate.toString()] === undefined){
-                        if(new Date().getTimezoneOffset() && new Date().getDay() === 1) {
-                            finalDate = year+'-'+month+'-'+(date-3);
-                        } else {
-                            finalDate = year+'-'+month+'-'+(date-1);
-                        }
-                    }
-                    let todayStocks = serverData[finalDate.toString()];
+                    let todayStocks = serverData[Object.keys(serverData)[0]]
                     let currentClosingPrice = todayStocks["4. close"];
                     let calculateProfit = parseInt([currentClosingPrice - dataRow.closingPrice] * dataRow.numberOfShares);
                     rows[dataRow.symbol].currentClosingPrice = currentClosingPrice;
