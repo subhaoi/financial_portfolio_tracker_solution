@@ -182,8 +182,8 @@ class Main extends Component {
                 <HorizontalLine />
                 {
                     Object.keys(this.state.myStocks).length < 6 ?
-                    <AddStocks allStocks={this.state.allStocks} addStock={this.addStockHandler} /> :
-                    <AddStocks error={'You can add only 5 stocks for tracking!'} />
+                    <AddStocks allStocks={this.state.allStocks} addStock={this.addStockHandler} /> 
+                    : <AddStocks error={'You can add only 5 stocks for tracking!'} />
                 }
             </div>
         )
