@@ -31,12 +31,11 @@ class Main extends Component {
     componentDidMount() {
         Axios.get('https://finance-portfolio-tracker.firebaseio.com/allStocksValue.json')
             .then(response => {
-                let allStocks = response.data;
+                this.setState({allStocks :response.data});
                 Axios.get('https://finance-portfolio-tracker.firebaseio.com/myStocksValue.json')
                 .then(response => {
                     this.setState({
                         myStocks: response.data,
-                        allStocks: allStocks
                     })
                 })
             })
@@ -133,7 +132,7 @@ class Main extends Component {
             }
         }
         let newAllStocks = this.state.allStocks;
-        newAllStocks.push(newAllStocksValue);
+        console.log(this.state.allStocks)
         Axios.put('https://finance-portfolio-tracker.firebaseio.com/allStocksValue.json', newAllStocks)
             .then(response => response)
             .catch(error => {console.log(error)})

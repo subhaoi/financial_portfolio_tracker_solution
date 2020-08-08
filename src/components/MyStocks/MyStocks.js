@@ -20,12 +20,10 @@ class MyStocks extends Component {
             rows[dataRow.symbol] = {...dataRow};
             // 2BEXLL47M5CJTGUH
             // 34BUQC6DXWG9GSAE
-            Axios.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol='+dataRow.symbol+'&outputsize=compact&apikey=34BUQC6DXWG9GSAE')
+            Axios.get('https://cloud.iexapis.com/stable/stock/'+dataRow.symbol+'/batch?types=quote&range=1m&last=10&token=pk_054e6a13c28f4452a98176bebd09f0f7')
                 .then(response => {
-                    console.log(response.data);
-                    let serverData = response.data["Time Series (Daily)"];
-                    let todayStocks = serverData[Object.keys(serverData)[0]]
-                    let currentClosingPrice = todayStocks["4. close"];
+                    let serverData = response.data["quote"];
+                    let currentClosingPrice = serverData["close"];
                     let calculateProfit = parseInt([currentClosingPrice - dataRow.closingPrice] * dataRow.numberOfShares);
                     rows[dataRow.symbol].currentClosingPrice = currentClosingPrice;
                     rows[dataRow.symbol].calculateProfit = calculateProfit;
