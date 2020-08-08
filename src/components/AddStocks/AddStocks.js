@@ -23,7 +23,7 @@ class AddStocks extends Component {
                     <AddStockButtons 
                         addStock = {(stock) => this.props.addStock(stock)}
                         allStocks={this.props.allStocks} 
-                        newAllStocks={(newAllStocks) => { console.log(newAllStocks); this.newAllStocksHandler(newAllStocks)}} 
+                        newAllStocks={(newAllStocks) => { this.newAllStocksHandler(newAllStocks)}} 
                         newMyStocks={this.props.newMyStocks} />
                         : null
                 }

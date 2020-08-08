@@ -132,7 +132,6 @@ class Main extends Component {
             }
         }
         let newAllStocks = this.state.allStocks;
-        console.log(this.state.allStocks)
         Axios.put('https://finance-portfolio-tracker.firebaseio.com/allStocksValue.json', newAllStocks)
             .then(response => response)
             .catch(error => {console.log(error)})

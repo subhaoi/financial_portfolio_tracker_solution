@@ -9,7 +9,6 @@ class AddStockButtons extends Component {
     }
     
     render() {
-        console.log(this.props.allStocks)
         let buttons = this.props.allStocks.map(stock => {
             return <AddStockButton key={stock.symbol} stock={stock} clicked={(stock) => this.props.addStock(stock)} />
         })
